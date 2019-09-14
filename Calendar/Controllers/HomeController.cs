@@ -12,7 +12,8 @@ namespace Calendar.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            return RedirectToAction("Index", "Calendar", 
+                new { year = DateTime.Now.Year, month = DateTime.Now.Month });
         }
 
         public IActionResult Privacy()

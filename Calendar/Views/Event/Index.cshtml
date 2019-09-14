@@ -1,0 +1,46 @@
+﻿@model EventModel
+@{
+    ViewBag.Title = "Events";
+}
+<a asp-action="Index" asp-controller="Calendar" asp-route-year="@Model.Date.Year" asp-route-month="@Model.Date.Month"> <i class="menu__icon fa fa-calendar"></i>Календарь</a>
+
+<h1>Добавить новое дело</h1>
+<form asp-action="create" method="post">
+    <input type="hidden" asp-for="Date" />
+    <div class="form-group">
+        <label asp-for="Time" class="control-label">Время</label>
+        <input type="time" asp-for="Time" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Title" class="control-label">Название</label>
+        <input type="text" asp-for="Title" class="form-control" autocomplete="off" />
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Сохранить" class="btn btn-default" />
+    </div>
+</form>
+
+<h1>Список справ на @Model.Date.ToShortDateString()</h1>
+@if (Model.Events != null)
+{
+    <table class="table">
+        <tr>
+            <td>Время</td>
+            <td>Название</td>
+            <td></td>
+        </tr>
+        @foreach (var item in Model.Events)
+        {
+            <tr>
+                <td>@item.Date.ToShortTimeString()</td>
+                <td>@item.Title</td>
+                <td>
+                    <a asp-action="Remove" asp-route-id="@item.Id" class="delete-button">Удалить</a>
+                </td>
+            </tr>
+
+        }
+    </table>
+}
+
+
